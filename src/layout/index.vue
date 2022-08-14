@@ -14,7 +14,6 @@
 <script>
 import { Navbar, Sidebar, AppMain } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
-import { nanoid } from 'nanoid'
 export default {
   name: 'Layout',
   components: {
@@ -23,11 +22,6 @@ export default {
     AppMain
   },
   mixins: [ResizeMixin],
-  data() {
-    return {
-      id: nanoid()
-    }
-  },
   computed: {
     sidebar() {
       return this.$store.state.app.sidebar
