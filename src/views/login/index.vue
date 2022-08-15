@@ -28,7 +28,13 @@
           <svg-icon :icon-class="`${isShow ? 'eye-open' :'eye'}`" />
         </span>
       </el-form-item>
-      <el-button class="loginBtn" type="primary" style="width:100%;margin-bottom:30px;" @click="login">登录</el-button>
+      <el-button
+        class="loginBtn"
+        type="primary"
+        style="width:100%;margin-bottom:30px;"
+        :loading="loading"
+        @click="login"
+      >登录</el-button>
       <div class="tips">
         <span style="margin-right:20px;">账号: 13800000002</span>
         <span> 密码: 123456</span>
@@ -64,7 +70,8 @@ export default {
           { required: true, message: '密码为空' },
           { min: 6, max: 16, message: '密码的长度在6-16位之间', trigger: 'blur' }
         ]
-      }
+      },
+      loading: false
     }
   },
   methods: {
@@ -83,8 +90,13 @@ export default {
       // })
       try {
         await this.$refs.loginForm.validate()
+        this.loading = true
+        await this.$store.dispatch('user/login', this.loginForm)
+        this.$router.push('/')
       } catch (error) {
         console.log(error)
+      } finally {
+        this.loading = false
       }
     }
   }
