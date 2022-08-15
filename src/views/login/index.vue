@@ -37,19 +37,28 @@
   </div>
 </template>
 <script>
+import { validMobile } from '@/utils/validate'
 export default {
   name: 'Login',
   data() {
+    const validateMobile = (rules, value, callback) => {
+      if (validMobile(value)) {
+        return callback()
+      }
+      return callback(new Error('手机号格式不正确'))
+    }
     return {
       isShow: false,
       loginForm: {
         mobile: '13800000002',
         password: '123456'
       },
+      // 规则匹配
       rules: {
         mobile: [
-          { required: true, message: '手机号为空' },
-          { pattern: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-79])|(?:5[0-35-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[189]))\d{8}$/, message: '手机格式不正确', trigger: 'blur' }
+          { required: true, message: '手机号为空', trigger: 'blur' },
+          // { pattern: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-79])|(?:5[0-35-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[189]))\d{8}$/, message: '手机格式不正确', trigger: 'blur' }
+          { validator: validateMobile, trigger: 'blur' }
         ],
         password: [
           { required: true, message: '密码为空' },
