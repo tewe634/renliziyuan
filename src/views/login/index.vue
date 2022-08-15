@@ -28,7 +28,7 @@
           <svg-icon :icon-class="`${isShow ? 'eye-open' :'eye'}`" />
         </span>
       </el-form-item>
-      <el-button class="loginBtn" type="primary" style="width:100%;margin-bottom:30px;">登录</el-button>
+      <el-button class="loginBtn" type="primary" style="width:100%;margin-bottom:30px;" @click="login">登录</el-button>
       <div class="tips">
         <span style="margin-right:20px;">账号: 13800000002</span>
         <span> 密码: 123456</span>
@@ -76,6 +76,16 @@ export default {
       this.$nextTick(() => {
         this.$refs.inputPwd.focus()
       })
+    },
+    async login() {
+      // this.$refs.loginForm.validate((val) => {
+      //   console.log(val) // 接收校验成功与失败的返回值
+      // })
+      try {
+        await this.$refs.loginForm.validate()
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
