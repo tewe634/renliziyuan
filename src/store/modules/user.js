@@ -18,7 +18,8 @@ export default {
     async login({ commit }, data) {
       try {
         const res = await login(data)
-        commit('SETTOKEN', res.data.data)
+        console.log(res)
+        commit('SETTOKEN', res)
       } catch (error) {
         console.log(error.message)
       }
