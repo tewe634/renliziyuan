@@ -41,6 +41,11 @@ export default {
       const userInfo = { ...res, ...result }
       commit('SETUSERINFO', userInfo)
       return res // 不推荐  返回到外面的值会影响仓库的值，赋值的时候要深拷贝
+    },
+    // 退出
+    logout({ commit }) {
+      commit('REMOVETOKEN')
+      commit('REMOVEINFO')
     }
   }
 }
