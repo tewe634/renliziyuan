@@ -16,7 +16,8 @@ export default {
       removeToken()
     },
     SETUSERINFO(state, userInfo) {
-      state.userInfo = userInfo
+      // state.userInfo = { ...userInfo }  // 浅拷贝
+      state.userInfo = JSON.parse(JSON.stringify(userInfo)) // 深拷贝
     },
     REMOVEINFO(state) {
       state.userInfo = {}
@@ -37,6 +38,7 @@ export default {
     async getUserInfo({ commit }) {
       const res = await getUserInfo()
       commit('SETUSERINFO', res)
+      return res // 不推荐  返回到外面的值会影响仓库的值，赋值的时候要深拷贝
     }
   }
 }

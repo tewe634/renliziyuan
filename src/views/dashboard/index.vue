@@ -13,9 +13,6 @@ export default {
     ...mapGetters([
       'name'
     ])
-  },
-  mounted() {
-    this.$store.dispatch('user/getUserInfo')
   }
 }
 </script>
