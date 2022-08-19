@@ -8,7 +8,6 @@
         <!-- 顶部 -->
         <navbar />
       </div>
-      中间内容
       <app-main />
     </div>
   </div>
