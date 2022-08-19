@@ -1,4 +1,5 @@
 <template>
+  <!-- collapse控制侧边栏长度 -->
   <div class="sidebar-logo-container" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
       <router-link key="collapse" class="sidebar-logo-link" to="/">
@@ -15,12 +16,6 @@ export default {
     collapse: {
       type: Boolean,
       required: true
-    }
-  },
-  data() {
-    return {
-      title: 'Vue Admin Template',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
     }
   }
 }
@@ -41,7 +36,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #2b2f3a;
+  // background: #2b2f3a;
   text-align: center;
   overflow: hidden;
 
@@ -50,8 +45,7 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
-      height: 32px;
+      width: 120px;  // 全部展示的时候背景图片的大小
       vertical-align: middle;
       margin-right: 12px;
     }
@@ -70,6 +64,7 @@ export default {
 
   &.collapse {
     .sidebar-logo {
+      width: 32px; // 收缩的时候背景图片的大小
       margin-right: 0px;
     }
   }
