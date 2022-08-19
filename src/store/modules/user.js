@@ -1,10 +1,12 @@
 import { login, getUserInfo, getDeltailInfo } from '@/api/user'
 import { setToken, getToken, removeToken } from '@/utils/auth'
+
 export default {
   namespaced: true,
   state: {
     token: getToken(),
-    userInfo: {}
+    userInfo: {},
+    hrsaasTime: ''
   },
   mutations: {
     SETTOKEN(state, token) {
@@ -21,6 +23,9 @@ export default {
     },
     REMOVEINFO(state) {
       state.userInfo = {}
+    },
+    SETTIME(state, time) {
+      state.hrsaasTime = time
     }
   },
   actions: {
@@ -28,7 +33,7 @@ export default {
     async login({ commit }, data) {
       try {
         const res = await login(data)
-        console.log(res)
+        commit('SETTIME', Date.now())
         commit('SETTOKEN', res)
       } catch (error) {
         console.log(error.message)
