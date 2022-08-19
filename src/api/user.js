@@ -9,4 +9,7 @@ export function getUserInfo() {
     method: 'post'
   })
 }
+export function getDeltailInfo(id) {
+  return request({ url: `/sys/user/${id}`, method: 'get' })
+}
 export function logout() {}

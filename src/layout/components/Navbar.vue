@@ -10,8 +10,10 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
+          <!-- 图片格式错误触发onerror事件 -->
           <img
-            src="http://destiny001.gitee.io/image/monkey_02.jpg"
+            v-imgError="defaultImg"
+            :src="staffPhoto"
             class="user-avatar"
           >
           <span>{{ userName }}</span>
@@ -31,6 +33,7 @@
 </template>
 
 <script>
+import defaultImg from '@/assets/common/head.jpg'
 import { mapGetters } from 'vuex'
 // import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
@@ -39,11 +42,17 @@ export default {
   components: {
     Hamburger
   },
+  data() {
+    return {
+      defaultImg: defaultImg
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'userName'
+      'userName',
+      'staffPhoto'
     ])
   },
   methods: {

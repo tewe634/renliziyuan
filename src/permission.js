@@ -7,8 +7,11 @@
 import router from '@/router'
 import store from '@/store'
 const whileList = ['/login', '/404']
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   if (store.getters.token) { // 有token
+    if (!store.getters.userId) {
+      await store.dispatch('user/getUserInfo')
+    }
     if (to.path === '/login') { // 去登入的话直接去首页，其他的话都可以
       next('/')
     } else {

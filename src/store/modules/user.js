@@ -1,4 +1,4 @@
-import { login, getUserInfo } from '@/api/user'
+import { login, getUserInfo, getDeltailInfo } from '@/api/user'
 import { setToken, getToken, removeToken } from '@/utils/auth'
 export default {
   namespaced: true,
@@ -37,7 +37,9 @@ export default {
     // 获取用户信息
     async getUserInfo({ commit }) {
       const res = await getUserInfo()
-      commit('SETUSERINFO', res)
+      const result = await getDeltailInfo(res.userId)
+      const userInfo = { ...res, ...result }
+      commit('SETUSERINFO', userInfo)
       return res // 不推荐  返回到外面的值会影响仓库的值，赋值的时候要深拷贝
     }
   }

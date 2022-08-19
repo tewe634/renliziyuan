@@ -12,9 +12,13 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-
+import * as directives from '@/directives'
 Vue.use(ElementUI)
-
+//  Object.keys遍历对象转为为数组，得到属性名
+Object.keys(directives).forEach(ele => {
+// 注册全局自定义指令
+  Vue.directive(ele, directives[ele])
+})
 Vue.config.productionTip = false
 
 new Vue({
