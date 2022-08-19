@@ -10051,6 +10051,11 @@
   "resolved" "https://registry.npmmirror.com/stealthy-require/-/stealthy-require-1.1.1.tgz"
   "version" "1.1.1"
 
+"store@^2.0.12":
+  "integrity" "sha512-eO9xlzDpXLiMr9W1nQ3Nfp9EzZieIQc10zPPMP5jsVV7bLOziSFFBP0XoDXACEIFtdI+rIz0NwWVA/QVJ8zJtw=="
+  "resolved" "https://registry.npmmirror.com/store/-/store-2.0.12.tgz"
+  "version" "2.0.12"
+
 "stream-browserify@^2.0.1":
   "integrity" "sha512-nX6hmklHs/gr2FuxYDltq8fJA1GDlxKQCz8O/IM4atRqBH8OORmBNgfvW5gG10GT/qQ9u0CzIvr2X5Pkt6ntqg=="
   "resolved" "https://registry.npmmirror.com/stream-browserify/-/stream-browserify-2.0.2.tgz"
@@ -11081,15 +11086,15 @@
   "resolved" "https://registry.npmmirror.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@*", "vue@^2 || ^3.0.0-0", "vue@^2.0.0", "vue@^2.5.17", "vue@^2.x", "vue@2.6.10", "vue@2.x":
+"vue@*", "vue@^2 || ^3.0.0-0", "vue@^2.5.17", "vue@^2.x", "vue@2.6.10", "vue@2.x":
   "integrity" "sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ=="
   "resolved" "https://registry.npmmirror.com/vue/-/vue-2.6.10.tgz"
   "version" "2.6.10"
 
-"vuex@^3.6.2":
-  "integrity" "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw=="
-  "resolved" "https://registry.npmjs.org/vuex/-/vuex-3.6.2.tgz"
-  "version" "3.6.2"
+"vuex@^3.1.0":
+  "integrity" "sha512-mdHeHT/7u4BncpUZMlxNaIdcN/HIt1GsGG5LKByArvYG/v6DvHcOxvDCts+7SRdCoIRGllK8IMZvQtQXLppDYg=="
+  "resolved" "https://registry.npmmirror.com/vuex/-/vuex-3.1.0.tgz"
+  "version" "3.1.0"
 
 "w3c-hr-time@^1.0.1":
   "integrity" "sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ=="
