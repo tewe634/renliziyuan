@@ -21,7 +21,7 @@ service.interceptors.request.use(
         return Promise.reject(new Error('token超时'))
       }
       // 如果token存在 注入token
-      config.headers['Authorization'] = `Bearer ${store.getters.token}11`
+      config.headers['Authorization'] = `Bearer ${store.getters.token}`
     }
     return config // 必须返回配置
   }, error => {
