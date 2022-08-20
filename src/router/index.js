@@ -12,7 +12,8 @@ import socialRouter from './modules/social'
 import Layout from '@/layout'
 Vue.use(Router)
 
-const asyncRoutes = [approvalsRouter, departmentsRouter, employeesRouter, permissionRouter, attendancesRouter, salarysRouter, settingRouter, socialRouter]
+const asyncRoutes = [socialRouter, approvalsRouter, attendancesRouter, salarysRouter, departmentsRouter]
+const awaitRoutes = [employeesRouter, permissionRouter, settingRouter]
 /**
  * constantRoutes
  * a base page that does not have permission requirements
@@ -44,6 +45,7 @@ export const constantRoutes = [
   },
 
   ...asyncRoutes,
+  ...awaitRoutes,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
