@@ -21,7 +21,7 @@ service.interceptors.request.use(
         return Promise.reject(new Error('token超时'))
       }
       // 如果token存在 注入token
-      config.headers['Authorization'] = `Bearer ${store.getters.token}`
+      config.headers['Authorization'] = `Bearer ${store.getters.token}11`
     }
     return config // 必须返回配置
   }, error => {
@@ -31,7 +31,6 @@ service.interceptors.request.use(
 // 相应拦截器
 service.interceptors.response.use(
   (response) => {
-    console.log(response)
     const { data, success, message } = response.data
     if (success) {
       return data
@@ -41,7 +40,13 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    Message.error(error.message)
+  //  Token失效的被动处理 后端会返回状态码
+    if (error.response?.data?.code === 10002) {
+      store.dispatch('user/logout')
+      router.push('/login')
+    } else {
+      Message.error(error.message)
+    }
     return Promise.reject(error)
   })
 export default service
