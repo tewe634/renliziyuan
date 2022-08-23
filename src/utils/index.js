@@ -115,3 +115,22 @@ export function param2Obj(url) {
   })
   return obj
 }
+
+// 树形结构递归
+export function tranListToTreeData(list, rootValue) {
+// list 数组
+// rootValue 顶级的默认为空
+// 递归遍历数据，对象里面的id等于顶级的pid就相当于第一层
+// 通过第一层在调用方法，对象中的id等于第一层的id就得到第二层
+  const arr = []
+  list.forEach(ele => {
+    if (ele.pid === rootValue) {
+      const children = tranListToTreeData(list, ele.id)
+      if (children.length) { // 通过长度判断数组里面有没有对象
+        ele.children = children
+      }
+      arr.push(ele)
+    }
+  })
+  return arr
+}
