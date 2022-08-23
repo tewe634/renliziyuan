@@ -1,5 +1,5 @@
 <template>
-  <div class="departments-container">
+  <div v-loading="loading" class="departments-container">
     <!-- 卡片阴影 -->
     <el-card class="tree-card">
       <tree-tosk :tree-obj="company" :is-show="false" @addTosk="addTosk" />
@@ -7,9 +7,9 @@
     <!-- 树形结构 -->
     <!--放置一个属性   这里的props和我们之前学习的父传子 的props没关系-->
     <el-tree :data="departs" :props="defaultProps" :default-expand-all="true">
-      <tree-tosk slot-scope="{data}" :tree-obj="data" :is-show="true" @addTosk="addTosk" />
+      <tree-tosk slot-scope="{data}" :tree-obj="data" :is-show="true" @addTosk="addTosk" @editTosk="editTosk" @delTask="delTask" />
     </el-tree>
-    <add-dept :show-dialog.sync="dialog" :current-tosk="currentTosk" @handleClose="dialog = false" />
+    <add-dept ref="addDept" :show-dialog.sync="dialog" :current-tosk="currentTosk" @handleClose="dialog = false" @addDepartments="getDepartments" />
   </div>
 </template>
 
@@ -17,6 +17,7 @@
 import treeTosk from './components/tree-tosk.vue'
 
 import { getDepartments } from '@/api/departments'
+import { delDepartments } from '@/api/employees'
 import { tranListToTreeData } from '@/utils'
 import AddDept from './components/add-dept.vue'
 export default {
@@ -30,7 +31,8 @@ export default {
       departs: [],
       company: {},
       dialog: false,
-      currentTosk: {}
+      currentTosk: {},
+      loading: false
     }
   },
   mounted() {
@@ -38,14 +40,45 @@ export default {
   },
   methods: {
     async getDepartments() {
+      this.loading = true
       const { depts, companyName, companyManage } = await getDepartments()
+      this.loading = false
       this.departs = tranListToTreeData(depts, '')
       this.company = { name: companyName, manager: companyManage, id: '' }
     },
     // 添加
     addTosk(node) {
       this.currentTosk = node
+      this.dialog = false
+    },
+    // 编辑
+    editTosk(node) {
       this.dialog = true
+      this.$refs.addDept.formData = { ...node }
+    },
+    // 删除
+    async delTask(id) {
+      // this.$confirm('确认删除改部门吗', '提示', {
+      //   type: 'warning'
+      // }).then(async res => {
+      //   await delDepartments(id)
+      //   this.$message.success('删除成功')
+      //   this.getDepartments()
+      // },
+      // error => {
+      //   console.log(error)
+      // }
+      // )
+      try {
+        await this.$confirm('确认删除改部门吗', '提示', {
+          type: 'warning'
+        })
+        await delDepartments(id)
+        this.$message.success('删除成功')
+        this.getDepartments()
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

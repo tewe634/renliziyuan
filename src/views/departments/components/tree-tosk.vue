@@ -43,9 +43,9 @@ export default {
       if (type === 'add') { // 添加
         this.$emit('addTosk', this.treeObj)
       } else if (type === 'edit') { // 编辑
-
+        this.$emit('editTosk', this.treeObj)
       } else { // 删除
-
+        this.$emit('delTask', this.treeObj.id)
       }
     }
   }
