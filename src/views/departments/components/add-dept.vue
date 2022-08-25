@@ -122,7 +122,7 @@ export default {
       const res = await getEmployeeSimple()
       this.Perops = res
     },
-    // 新增
+    // 新增&&编辑
     addDepartments() {
       this.$refs.deptForm.validate(async(isOk) => {
         if (isOk) {
