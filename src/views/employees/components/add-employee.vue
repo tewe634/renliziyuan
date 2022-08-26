@@ -5,7 +5,7 @@
     :before-close="handleClose"
   >
     <!-- 表单 -->
-    <el-form label-width="120px" :model="formData" :rules="rules">
+    <el-form ref="formDate" label-width="120px" :model="formData" :rules="rules">
       <el-form-item label="姓名" prop="username">
         <el-input v-model="formData.username" style="width:80%" placeholder="请输入姓名" />
       </el-form-item>
@@ -33,7 +33,7 @@
         <el-tree v-if="showTree" :default-expand-all="true" :data="list" :props="{label:'name'}" :v-loading="loading" @node-click="selectNode" />
       </el-form-item>
       <el-form-item label="转正时间">
-        <el-date-picker style="width:80%" placeholder="请选择转正时间" />
+        <el-date-picker v-model="formData.correctionTime" style="width:80%" placeholder="请选择转正时间" />
       </el-form-item>
     </el-form>
     <!-- footer插槽 -->
@@ -41,7 +41,7 @@
       <el-row type="flex" justify="center">
         <el-col :span="6">
           <el-button size="small" @click="handleClose">取消</el-button>
-          <el-button type="primary" size="small">确定</el-button>
+          <el-button v-loading="lodingBtn" type="primary" size="small" @click="submitRole">确定</el-button>
         </el-col>
       </el-row>
     </template>
@@ -52,6 +52,7 @@
 import employees from '@/api/constant/employees'
 import { getDepartments } from '@/api/departments'
 import { tranListToTreeData } from '@/utils'
+import { addEmployee } from '@/api/employees'
 export default {
   name: 'AddEmployee',
   props: {
@@ -65,6 +66,7 @@ export default {
       hireType: employees.hireType,
       showTree: false,
       loading: false,
+      lodingBtn: false,
       formData: {
         username: '',
         mobile: '',
@@ -92,6 +94,17 @@ export default {
   methods: {
     handleClose() {
       this.$emit('update:showDialog', false)
+      this.$refs.formDate.resetFields()
+      this.showTree = false
+      this.formData = {
+        username: '',
+        mobile: '',
+        formOfEmployment: '',
+        workNumber: '',
+        departmentName: '',
+        timeOfEntry: '',
+        correctionTime: ''
+      }
     },
     // 获取部门详情
     async addDepartList() {
@@ -109,6 +122,19 @@ export default {
     selectNode(node) {
       this.formData.timeOfEntry = node.name
       this.showTree = false
+    },
+    // 确认
+    async submitRole() {
+      try {
+        await this.$refs.formDate.validate()
+        this.lodingBtn = true
+        await addEmployee(this.formData)
+        this.$message.success('新增成功~')
+        this.$emit('addEmployee')
+        this.handleClose()
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
