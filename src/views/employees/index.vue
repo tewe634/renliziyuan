@@ -3,7 +3,7 @@
     <PageTools :type="'info'">
       <span slot="before">共{{ total }}条记录</span>
       <template slot="after">
-        <el-button size="small" type="warning">导入</el-button>
+        <el-button size="small" type="warning" @click="$router.push({path:'/import',query:{type:'user'}})">导入</el-button>
         <el-button size="small" type="danger">导出</el-button>
         <el-button size="small" type="primary" @click="showDialog = true">新增员工</el-button>
       </template>
