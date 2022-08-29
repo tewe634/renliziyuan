@@ -13,6 +13,18 @@
       <el-table v-loading="loading" border :data="list">
         <el-table-column label="序号" sortable="" type="index" />
         <el-table-column label="姓名" sortable="" prop="username" />
+        <el-table-column label="头像" align="center">
+          <template slot-scope="{row}">
+            <img
+              slot="reference"
+              v-imgError="require('@/assets/common/bigUserHeader.png')"
+              :src="row.staffPhoto"
+              style="border-radius: 50%; width: 100px; height: 100px; padding: 10px"
+              alt=""
+              @click="showPhoto(row.staffPhoto)"
+            >
+          </template>
+        </el-table-column>
         <el-table-column label="工号" sortable="" prop="workNumber" />
         <el-table-column label="聘用形式" sortable prop="formOfEmployment" :formatter="formatEmployment" />
         <el-table-column label="部门" sortable="" prop="departmentName" />
@@ -56,6 +68,12 @@
     </el-card>
     <!-- 新增对话框 -->
     <add-employee :show-dialog.sync="showDialog" @addEmployee="getEmployeeList" />
+    <!-- 二维吗-->
+    <el-dialog title="二维码" :visible.sync="showCodeDialog">
+      <el-row type="flex" justify="center">
+        <canvas ref="myCanvas" />
+      </el-row>
+    </el-dialog>
   </div>
 </template>
 
@@ -64,6 +82,7 @@ import { getEmployeeList, delEmployee } from '@/api/employees'
 import EmployeeEnum from '@/api/constant/employees'
 import addEmployee from './components/add-employee.vue'
 import { formatDate } from '@/filters'
+import QrCode from 'qrcode'
 export default {
   name: 'Employees',
   components: { addEmployee },
@@ -76,7 +95,8 @@ export default {
       list: [],
       total: 0,
       loading: false,
-      showDialog: false
+      showDialog: false,
+      showCodeDialog: false
     }
   },
   created() {
@@ -160,6 +180,14 @@ export default {
           return ele[headers[key]]
         })
       })
+    },
+    // 转成二维码
+    async showPhoto(url) {
+      if (!url) return this.$message.error('该用户还未上传头像')
+      this.showCodeDialog = true
+      await this.$nextTick()
+      const dom = this.$refs.myCanvas
+      QrCode.toCanvas(dom, url) // 将地址转化成二维码
     }
   }
 

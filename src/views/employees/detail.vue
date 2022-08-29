@@ -68,8 +68,8 @@ export default {
     async getDeltailInfo() {
       try {
         this.userInfo = await getDeltailInfo(this.userId)
-
         this.$refs.userIndoRef.userInfo = { ...this.userInfo }
+        this.$refs.userIndoRef.employeesHeader(this.userInfo.staffPhoto)
       } catch (error) {
         console.log(error)
       }

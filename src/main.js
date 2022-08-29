@@ -15,6 +15,8 @@ import '@/icons' // icon
 import '@/permission' // permission control
 import * as directives from '@/directives'
 import * as filters from '@/filters'
+import Print from 'vue-print-nb'
+Vue.use(Print)
 Vue.use(ElementUI)
 Vue.use(components)
 //  Object.keys遍历对象转为为数组，得到属性名
