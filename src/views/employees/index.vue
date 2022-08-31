@@ -47,7 +47,7 @@
             <el-button type="text" size="small">转正</el-button>
             <el-button type="text" size="small">调岗</el-button>
             <el-button type="text" size="small">离职</el-button>
-            <el-button type="text" size="small">角色</el-button>
+            <el-button type="text" size="small" @click="heroDialog(row.id)">角色</el-button>
             <el-button type="text" size="small" @click="delect(row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -74,6 +74,8 @@
         <canvas ref="myCanvas" />
       </el-row>
     </el-dialog>
+    <!-- 人员详情 -->
+    <assign-role ref="assign" v-model="assingDialog" :current-id="currentId" />
   </div>
 </template>
 
@@ -83,9 +85,10 @@ import EmployeeEnum from '@/api/constant/employees'
 import addEmployee from './components/add-employee.vue'
 import { formatDate } from '@/filters'
 import QrCode from 'qrcode'
+import AssignRole from './components/assign-role.vue'
 export default {
   name: 'Employees',
-  components: { addEmployee },
+  components: { addEmployee, AssignRole },
   data() {
     return {
       page: {
@@ -96,7 +99,9 @@ export default {
       total: 0,
       loading: false,
       showDialog: false,
-      showCodeDialog: false
+      showCodeDialog: false,
+      assingDialog: false,
+      currentId: ''
     }
   },
   created() {
@@ -188,6 +193,12 @@ export default {
       await this.$nextTick()
       const dom = this.$refs.myCanvas
       QrCode.toCanvas(dom, url) // 将地址转化成二维码
+    },
+    // 角色详情
+    async heroDialog(id) {
+      await this.$refs.assign.getRoleList()
+      this.currentId = id
+      this.assingDialog = true
     }
   }
 
